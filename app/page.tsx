@@ -38,6 +38,7 @@ export default function App() {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>{todo.content}</li>
+          <li key={todo.id}>{todo.isDone}</li>
         ))}
       </ul>
       <div>
