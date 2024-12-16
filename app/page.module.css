@@ -1,295 +1,91 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-  min-height: 100vh;
-  background-color: white;
-  box-sizing: border-box;
-}
-
-.description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 1rem;
-  max-width: var(--max-width);
+/* Global styles */
+.container {
   width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
-  line-height: 1.5;
-}
-
-.description a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.description p {
+  height: auto;
   position: relative;
   margin: 0;
-  padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
-}
-
-.code {
-  font-weight: 700;
-  font-family: var(--font-mono);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(25%, 1fr));
-  max-width: 100%;
-  width: var(--max-width);
-  box-sizing: border-box;
-}
-
-.card {
-  padding: 1rem 1.2rem;
-  border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
-  transition: background 200ms, border 200ms, box-shadow 200ms;
-}
-
-.card span {
-  display: inline-block;
-  transition: transform 200ms;
-}
-
-.card h2 {
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-}
-
-.card p {
-  margin: 0;
-  opacity: 0.6;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 30ch;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding: 4rem 0;
-  gap: 4rem;
-}
-
-/* Mobile (below 700px) */
-@media (max-width: 700px) {
-  .content {
-    padding: 2rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    margin-bottom: 120px;
-    max-width: 100%;
-    text-align: center;
-  }
-
-  .card {
-    padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
-  }
-
-  .center {
-    padding: 6rem 0 4rem;
-  }
-
-  .description {
-    font-size: 0.85rem;
-    line-height: 1.4;
-  }
-
-  .description a {
-    padding: 1rem;
-  }
-
-  .description p,
-  .description div {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-  }
-
-  .description p {
-    align-items: center;
-    inset: 0 0 auto;
-    padding: 2rem 1rem 1.4rem;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(to bottom, rgba(var(--background-start-rgb), 1), rgba(var(--callout-rgb), 0.5));
-    background-clip: padding-box;
-    backdrop-filter: blur(24px);
-  }
-
-  .description div {
-    align-items: flex-end;
-    pointer-events: none;
-    inset: auto 0 0;
-    padding: 2rem;
-    height: 200px;
-    background: linear-gradient(to bottom, transparent 0%, rgb(var(--background-end-rgb)) 40%);
-    z-index: 1;
-  }
-
-  /* Navbar Adjustments */
-  .navbar {
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-
-  .navbarContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .navbarItem {
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: center;
-  }
-
-  .navbarItem:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-  }
-
-  /* Adjust text in overlay */
-  .overlayText {
-    font-size: 1.5rem; /* Adjust font size for better mobile scaling */
-    text-align: center;
-    padding: 1rem; /* Add padding to prevent text from touching edges */
-  }
-
-  /* Adjust header text for smaller screens */
-  .hp-header {
-    font-size: 1.5rem;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Image adjustments */
-  .imageContainer {
-    width: 100%;
-    height: auto;
-    max-height: 300px;
-    position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-
-  .navbarImage {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Ensure the image covers the container without distortion */
-  }
-
-  .container {
-    height: auto;
-  }
-
-  /* Logo and Overlay Text adjustments */
-  .logoLink {
-    position: absolute;
-    top: 10%; /* Adjust top position */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    font-size: 1.2rem; /* Adjust font size for mobile */
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 1rem; /* Ensure readability */
-  }
-
-  .overlayText {
-    position: absolute;
-    bottom: 10%; /* Adjust bottom position */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    font-size: 1.5rem;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    width: 80%; /* Limit width to prevent overflow */
-    padding: 1rem;
-  }
-}
-
-/* Tablet and Smaller Desktop (701px to 1120px) */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
-
-  .navbarItem {
-    font-size: 1.1rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card:hover {
-    box-shadow: none;
-  }
-
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
+  /* Remove any global margin */
 }
 
 .imageContainer {
-  position: relative;
   width: 100%;
+  height: auto;
   max-height: 500px;
+  /* Adjust max height for better responsiveness */
+  position: relative;
   overflow: hidden;
-  box-sizing: border-box;
+  margin: 0;
+  /* Ensure no margin here to remove space */
+  padding: 0;
+  /* Ensure no padding here to remove space */
 }
 
 .navbarImage {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  display: block;
-  margin: 0;
+  object-fit: cover;
+  /* Ensure image covers the space without distortion */
 }
 
+/* Main Text Container */
+.textContainer {
+  position: absolute;
+  top: -7px;
+  /* Adjust bottom to -7px from the top of the container */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 10;
+  /* Ensures it stays above the image */
+}
+
+.overlayText {
+  color: white;
+  font-size: 2rem;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 10;
+  padding: 0 1rem;
+  /* Adjust padding for smaller screens */
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+
+}
+
+/* Scalable logo */
+.logoLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  /* Let the height adjust based on the content */
+}
+
+.logoLink img {
+  display: block;
+  max-width: 100%;
+  /* Ensure the image does not exceed container's width */
+  width: auto;
+  /* Allow width to scale proportionally */
+  height: auto;
+  /* Ensure logo height scales with width */
+  transform: scale(1);
+  /* Set initial scale to 1 */
+  object-fit: contain;
+  /* Ensure logo fits within container without distortion */
+  max-height: 150px;
+  /* Control the max height */
+}
+
+/* Navbar styling */
 .navbar {
   background-color: black;
-  padding: 0;
-  margin: 0;
   width: 100%;
-  position: relative;
+  position: sticky;
   z-index: 1000;
-  top: 0;
   box-sizing: border-box;
 }
 
@@ -298,53 +94,21 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: 1rem;
 }
 
 .navbarItem {
   color: white;
-  text-decoration: none;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   transition: background-color 0.3s, transform 0.3s;
   font-size: 1rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .navbarItem:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
-}
-
-.container {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  overflow: hidden;
-  background-color: white;
-  box-sizing: border-box;
-}
-
-.textContainer {
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  gap: 20px;
-}
-
-.overlayText {
-  color: white;
-  font-size: 2.5rem;
-  text-align: center;
-  z-index: 10;
-  white-space: nowrap;
-}
-
-.logoLink {
-  z-index: 1;
-  cursor: pointer;
 }
 
 .instaLink {
@@ -354,19 +118,134 @@
 
 .instaLogo {
   object-fit: contain;
+  transition: transform 0.3s;
 }
 
 .instaLogo:hover {
   transform: scale(1.1);
 }
 
-.hp-header {
-  font-family: 'Jura', sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #000000;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 40px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+/* Mobile (below 700px) */
+@media (max-width: 700px) {
+
+  /* Image Container */
+  .imageContainer {
+    height: 60px;
+    /* Limit height for small devices */
+    margin: 0;
+    /* Remove margin for mobile devices */
+  }
+
+  /* Adjust navbar items */
+  .navbarItem {
+    padding: 1rem;
+    font-size: 1rem;
+    /* Smaller font size for mobile */
+  }
+
+  /* Text Container adjustments */
+  .textContainer {
+    flex-direction: row;
+    /* Ensure logo and text are side-by-side */
+    gap: 20px;
+    /* Adjust space between logo and text */
+    bottom: -5px;
+    /* Move text closer to the bottom */
+  }
+
+  .overlayText {
+    font-size: 0.5rem;
+    /* Smaller text for mobile */
+    scale: 1.2;
+    margin-left: -12px;
+  }
+
+  /* Navbar styling */
+  .navbar {
+    width: 100%;
+    
+  }
+
+  /* Navbar adjustment */
+  .navbarContent {
+    flex-direction: column;
+  }
+
+  .navbarItem {
+    font-size: 1.1rem;
+    padding: 0.05rem 14rem;
+    scale: 0.75;
+  }
+
+  /* Instagram Logo */
+  .instaLogo {
+    width: 25px;
+    /* Smaller Instagram logo */
+    height: 25px;
+  }
+
+  .logoLink {
+    font-size: 1.2rem;
+    /* Adjust logo font size */
+    text-align: center;
+  }
+}
+
+/* Tablet (701px to 1120px) */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .navbarItem {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .textContainer {
+    flex-direction: row;
+    gap: 20px;
+    /* Slightly larger gap */
+  }
+
+  .overlayText {
+    font-size: 2rem;
+  }
+
+  /* Adjust logo size for medium screens */
+  .logoLink img {
+    width: 40vw;
+    /* Make logo 40% of the viewport width */
+    max-width: 160px;
+    /* Limit the max size */
+    min-width: 80px;
+    /* Set minimum size */
+    max-height: 120px;
+    /* Control max height */
+  }
+}
+
+/* Desktop (Above 1120px) */
+@media (min-width: 1120px) {
+  .navbarItem {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+  }
+
+  .textContainer {
+    bottom: 10px;
+    /* Keep text 10px from the bottom */
+  }
+
+  .overlayText {
+    font-size: 2.5rem;
+  }
+
+  /* Adjust logo size for large screens */
+  .logoLink img {
+    width: 25vw;
+    /* Make logo 25% of the viewport width */
+    max-width: 180px;
+    /* Limit the max size */
+    min-width: 100px;
+    /* Set minimum size */
+    max-height: 150px;
+    /* Limit the max height */
+  }
 }
