@@ -30,7 +30,9 @@ export default function EmailList() {
         <h2 className="admin-h2" onClick={toggleCollapse}>
           Email List{" "}
           <span
-            className={`dropdown-arrow ${isContentCollapsed ? "collapsed" : ""}`}
+            className={`dropdown-arrow ${
+              isContentCollapsed ? "collapsed" : ""
+            }`}
             style={{
               display: "inline-block",
               marginLeft: "8px",
@@ -63,7 +65,10 @@ export default function EmailList() {
                 >
                   Search
                 </button>
-                <button className="deleteButton" onClick={handleBulkDeleteEmails}>
+                <button
+                  className="deleteButton"
+                  onClick={handleBulkDeleteEmails}
+                >
                   Delete Selected
                 </button>
               </div>
@@ -122,6 +127,41 @@ export default function EmailList() {
                   Create Entry
                 </button>
               </form>
+            </div>
+            <br />
+            {/* SES email send to entire email list */}
+            <div className="email-body">
+              <h2 className="admin-h3">Send News Letter</h2>
+              {/* Subject input field */}
+              <div className="form-group">
+                <label htmlFor="subject" className="admin-h3">
+                  Subject
+                </label>
+                <input
+                  id="subject"
+                  type="text"
+                  placeholder="Enter Email Subject"
+                  className="form-input"
+                />
+              </div>
+
+              {/* Email body textarea */}
+              <div className="form-group">
+                <label htmlFor="emailBody" className="admin-h3">
+                  Email Body
+                </label>
+                <textarea
+                  id="emailBody"
+                  className="form-input"
+                  placeholder="Enter email body"
+                  rows={6}
+                ></textarea>
+              </div>
+
+              {/* Email List button */}
+              <div>
+                <button className="email-list-button">Email List</button>
+              </div>
             </div>
           </>
         )}
