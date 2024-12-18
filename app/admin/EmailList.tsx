@@ -159,8 +159,8 @@ export default function EmailList() {
               </div>
 
               {/* Email List button */}
-              <div>
-                <button className="email-list-button">Email List</button>
+              <div className="divButton">
+                <button>Email List</button>
               </div>
             </div>
           </>

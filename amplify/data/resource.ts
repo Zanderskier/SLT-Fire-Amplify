@@ -10,7 +10,6 @@ const schema = a.schema({
   Subscribers: a
     .model({
       email: a.email(),
-      //customer: a.belongsTo("User", "emailID"),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -27,9 +26,30 @@ const schema = a.schema({
       eventDetails: a.string(),
       addentees: a.email(),
       allday: a.boolean(),
+      attendents: a.hasMany('EventAttentants', 'attendeeId'),
 
     })
     .authorization((allow) => [allow.publicApiKey()]),
+
+    Attendee: a
+    .model({
+      nameFirst: a.string(),
+      nameLast: a.string(),
+      phoneNumber: a.string(),
+      email: a.email(),
+      partySize: a.integer(),
+      events: a.hasMany('EventAttentants', 'eventId'),
+
+    }).authorization((allow) => [allow.publicApiKey()]),
+
+    EventAttentants: a
+    .model({
+      eventId: a.id().required(),
+      attendeeId: a.id().required(),
+      event: a.belongsTo('Event', 'eventId'),
+      attendee: a.belongsTo('Attendee', 'attendeeId'),
+
+    }).authorization((allow) => [allow.publicApiKey()]),
 
     aboutUs: a
     .model({

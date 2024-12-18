@@ -2,6 +2,7 @@
 .calendar-container {
     height: 80vh;
     margin-bottom: 60px;
+    position: relative;
 }
 
 .rbc-day-bg:hover {
@@ -16,7 +17,7 @@
     background-color: #63b5db;
 }
 
-.rbc-toolbar-label{
+.rbc-toolbar-label {
     flex-grow: 20;
     padding: 0 10px;
     text-align: center;
@@ -30,7 +31,7 @@
 }
 
 .divPopUp {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -141,4 +142,29 @@
     margin-bottom: 15px;
 }
 
-  
+.bold-hr {
+    border: 3px solid black;
+    /* Change the value to adjust the thickness */
+}
+
+.p-box {
+    border: 2px solid #000;
+    /* Black border */
+    padding: 10px;
+    /* Add some padding inside the box */
+    margin: 5px 0;
+    /* Optional: Adds space between each paragraph box */
+    background-color: #f9f9f9;
+    /* Optional: Light background color */
+    border-radius: 5px;
+    /* Optional: Rounded corners */
+}
+
+.error-message {
+    color: rgb(210, 13, 13);
+    font-size: 18px;
+    margin-top: 8px;
+    font-weight: bold;
+    
+       
+}
