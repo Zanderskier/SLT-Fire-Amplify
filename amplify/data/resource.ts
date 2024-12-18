@@ -24,9 +24,8 @@ const schema = a.schema({
       eventEndTime: a.time(),
       eventLocation: a.string(),
       eventDetails: a.string(),
-      addentees: a.email(),
       allday: a.boolean(),
-      attendents: a.hasMany('EventAttentants', 'attendeeId'),
+      attendents: a.hasMany('EventAttentants', 'eventId'),
 
     })
     .authorization((allow) => [allow.publicApiKey()]),
@@ -38,7 +37,7 @@ const schema = a.schema({
       phoneNumber: a.string(),
       email: a.email(),
       partySize: a.integer(),
-      events: a.hasMany('EventAttentants', 'eventId'),
+      events: a.hasMany('EventAttentants', 'attendeeId'),
 
     }).authorization((allow) => [allow.publicApiKey()]),
 
