@@ -26,7 +26,7 @@ const schema = a.schema({
       eventDetails: a.string(),
       addentees: a.email(),
       allday: a.boolean(),
-      attendents: a.hasMany('EventAttendees', 'attendeeId'),
+      //attendents: a.hasMany('EventAttendees', 'attendeeId'),
 
     })
     .authorization((allow) => [allow.publicApiKey()]),
@@ -38,10 +38,10 @@ const schema = a.schema({
       phoneNumber: a.string(),
       email: a.email(),
       partySize: a.integer(),
-      events: a.hasMany('EventAttentants', 'eventId'),
+      //events: a.hasMany('EventAttentants', 'eventId'),
 
     }).authorization((allow) => [allow.publicApiKey()]),
-
+/*
     EventAttentants: a
     .model({
       eventId: a.id().required(),
@@ -50,7 +50,7 @@ const schema = a.schema({
       attendee: a.belongsTo('Attendee', 'attendeeId'),
 
     }).authorization((allow) => [allow.publicApiKey()]),
-
+*/
     aboutUs: a
     .model({
       picture: a.string(),
