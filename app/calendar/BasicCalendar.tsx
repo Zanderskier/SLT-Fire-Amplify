@@ -8,15 +8,34 @@ export default function BasicCalendar() {
     events,
     selectedEvent,
     isModalOpen,
+    isRSVPModalOpen,
     mappedEvents,
+    rsvpFName,
+    rsvpLName,
+    rsvpEmail,
+    rsvpPhone,
+    rsvpAttendeeCount,
+    errorMessage,
+    setErrorMessage,
     setIsModalOpen,
+    setIsRSVPModalOpen,
+    setRsvpFName,
+    setRsvpLName,
+    setRsvpEmail,
+    setRsvpPhone,
+    setRsvpAttendeeCount,
+    handleCloseRSVP,
+    handleRSVPSubmit,
     handleEventSelect,
     handleCloseModalBasic,
+    handleRSVPEventClick,
   } = useCalendar(); // Only use selectedEvent and isModalOpen state
 
   useEffect(() => {
     if (!selectedEvent) {
       setIsModalOpen(false); // Close the modal if no event is selected
+    } else if (selectedEvent && isRSVPModalOpen) {
+      setIsModalOpen(false);
     }
   }, [selectedEvent, setIsModalOpen]);
 
@@ -36,20 +55,127 @@ export default function BasicCalendar() {
       {selectedEvent && (
         <div className="divPopUp">
           <h3>Event Details</h3>
-          <p><strong>Title:</strong> {selectedEvent.title}</p>
-          <p><strong>All Day Event:</strong> {selectedEvent.allDay ? "Yes" : "No"}</p>
-          <p><strong>Start:</strong> {moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}</p>
-          <p><strong>End:</strong> {moment(selectedEvent.end).format("YYYY-MM-DD HH:mm")}</p>
-          <p><strong>Location:</strong> {selectedEvent.location}</p>
-          <p><strong>Details:</strong> {selectedEvent.details}</p>
+          <p>
+            <strong>Title:</strong> {selectedEvent.title}
+          </p>
+          <p>
+            <strong>All Day Event:</strong>{" "}
+            {selectedEvent.allDay ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Start:</strong>{" "}
+            {moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}
+          </p>
+          <p>
+            <strong>End:</strong>{" "}
+            {moment(selectedEvent.end).format("YYYY-MM-DD HH:mm")}
+          </p>
+          <p>
+            <strong>Location:</strong> {selectedEvent.location}
+          </p>
+          <p>
+            <strong>Details:</strong> {selectedEvent.details}
+          </p>
           <div className="divButton">
-            <button type="button" onClick={handleCloseModalBasic} className="popUpRSVPButton">
+            <button
+              type="button"
+              onClick={handleRSVPEventClick}
+              className="popUpRSVPButton"
+            >
               RSVP
             </button>
-            <button type="button" onClick={handleCloseModalBasic} className="popUpCancelButton">
+            <button
+              type="button"
+              onClick={handleCloseModalBasic}
+              className="popUpCancelButton"
+            >
               Close
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Modal for RSVP to an event */}
+      {isRSVPModalOpen && (
+        <div className="divPopUp">
+          <h3>RSVP Event: {selectedEvent.title}</h3>
+          <div className="p-box">
+            <p>
+              Start Date:{" "}
+              {moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}
+            </p>
+            <p>
+              End Date: {moment(selectedEvent.end).format("YYYY-MM-DD HH:mm")}
+            </p>
+            <p>Location: {selectedEvent.location}</p>
+            <p>Details: {selectedEvent.details}</p>
+          </div>
+          <hr className="bold-hr" />
+          <form>
+            <div>
+              <label>First Name:</label>
+              <input
+                type="text"
+                value={rsvpFName}
+                onChange={(e) => setRsvpFName(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+            </div>
+            <div>
+              <label>Last Name:</label>
+              <input
+                type="text"
+                value={rsvpLName}
+                onChange={(e) => setRsvpLName(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+            </div>
+            <div>
+              <label>Email:</label>
+              <input
+                type="text"
+                value={rsvpEmail}
+                onChange={(e) => setRsvpEmail(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+              {/* Display error message */}
+            </div>
+            <div>
+              <label>Phone:</label>
+              <input
+                type="tel"
+                value={rsvpPhone}
+                placeholder="555-555-5555"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                onChange={(e) => setRsvpPhone(e.target.value)}
+                className="popUpInputBox"
+                ></input>
+            </div>
+            <div>
+              <label>Party Size</label>
+              <select
+                value={rsvpAttendeeCount}
+                onChange={(e) => setRsvpAttendeeCount(Number(e.target.value))}
+                className="popUpInputBox"
+                >
+                {/* Values from 1 - 10 */}
+                {[...Array(10)].map((_, i) => (
+                  <option key={i} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+                { errorMessage && <div className="error-message">{errorMessage}</div>}
+            <div className="divButton">
+              <button type="submit" onClick={handleRSVPSubmit}>
+                Submit
+              </button>
+              <button type="button" onClick={handleCloseRSVP}>
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
 

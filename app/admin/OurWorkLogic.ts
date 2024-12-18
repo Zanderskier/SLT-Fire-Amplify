@@ -128,6 +128,8 @@ export function useOurWorkLogic() {
     description: string
   ) {
     try {
+      picture = sanitizeInput(picture);
+      business = sanitizeInput(business);
       const result = await client.models.ourWork.create({
         picture,
         business,

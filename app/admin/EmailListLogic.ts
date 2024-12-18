@@ -3,6 +3,7 @@ import { generateClient } from "aws-amplify/data";
 import { useState, useEffect } from "react";
 import { Schema } from "@/amplify/data/resource";
 import outputs from "@/amplify_outputs.json";
+import { Sanitize } from "../supportFunctions/SanitizeInput";
 
 Amplify.configure(outputs);
 const client = generateClient<Schema>();
@@ -14,9 +15,11 @@ export function useEmailListLogic() {
   const [selectedEmails, setSelectedEmails] = useState<Set<string>>(new Set());
   const [emailSearchQuery, setEmailSearchQuery] = useState<string>("");
 
+  const { sanitizeInput } = Sanitize();
+
   // Function to list existing "Email List" entries from Subscribers table with filtering based on emailSearchQuery
   function listEmails() {
-    const query = emailSearchQuery
+    const query = sanitizeInput(emailSearchQuery)
       ? { filter: { email: { eq: emailSearchQuery } } }
       : {};
 
@@ -41,12 +44,13 @@ export function useEmailListLogic() {
     event.preventDefault();
 
     // Convert email input to lowercase
-    const emailInputLower = emailInput.toLowerCase();
+    const emailInputLower = sanitizeInput(emailInput.toLowerCase());
+    
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailInputLower)) {
-      setEmailError("Invalid email format.");
+      setEmailError(" * Invalid email format.");
       return;
     }
 

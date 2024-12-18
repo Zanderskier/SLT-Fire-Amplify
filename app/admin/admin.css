@@ -191,9 +191,12 @@ button:disabled {
 }
 
 .error-message {
-    color: red;
-    font-size: 14px;
+    color: rgb(210, 13, 13);
+    font-size: 18px;
     margin-top: 8px;
+    font-weight: bold;
+    
+       
 }
 
 .email-list-parent {
@@ -270,6 +273,12 @@ button:disabled {
         width: 95vw;
         margin: 10px;
         padding: 15px;
+    }
+
+    .divButton {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
     }
 
     .admin-h2, .admin-h3 {
