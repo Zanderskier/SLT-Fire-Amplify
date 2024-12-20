@@ -9,14 +9,14 @@
 }
 
 .div {
-    margin: 20px;
+    margin: 20px; 
     padding: 20px;
     width: 80vw;
-    align-content: center;
-    background-color: #f2f2f2;
-    /* Light gray background for better visibility */
+    background-color: #f2f2f2; /* Light gray background for better visibility */
     color: #333;
     border-radius: 5px;
+    overflow: hidden; /* Prevent content overflow */
+    box-sizing: border-box; /* Ensure padding/margin doesn't affect the width */
 }
 
 .admin-h2 {
@@ -264,81 +264,114 @@ button:disabled {
 
 /* Mobile responsive adjustments */
 @media screen and (max-width: 768px) {
-    .admin-grid {
-        grid-template-columns: 1fr; /* Stack items in one column */
-        padding: 10px;
-    }
 
-    .div {
-        width: 95vw;
-        margin: 10px;
-        padding: 15px;
-    }
-
-    .divButton {
-        display: flex;
-        justify-content: flex-end;
-        padding: 10px;
-    }
-
-    .admin-h2, .admin-h3 {
-        text-align: center; /* Center titles for mobile view */
-    }
-
-    .form-submit-btn {
-        width: 100%; /* Make the submit button full width */
-    }
-
-    .email-list-container {
-        max-height: 200px;
-        padding: 5px; /* Reduce padding for mobile */
-    }
-
-    .email-list-button {
-        width: 100%; /* Make button full-width on mobile */
-        margin-top: 5px;
-    }
-
-    .admin-aboutUs-image {
-        width: 100px;
-        height: 100px;
-    }
-
-    .about-us-form, .add-email-form {
-        max-width: 90%;
-        padding: 1rem;
-    }
-
-    .form-group input {
-        font-size: 0.9rem; /* Smaller input text size */
-        padding: 0.6rem;
-    }
-
-    .form-group label {
-        font-size: 0.9rem; /* Smaller label text */
-    }
+.div{
+    margin: 5px;
 }
 
-@media screen and (max-width: 480px) {
-    .div {
-        width: 90vw;
-        padding: 10px;
+.admin-h1{
+    font-size: 1.2rem;
+    margin: 5px;
+}
+    .admin-h2{
+        font-size: 0.8rem;
     }
 
-    .admin-h1, .admin-h2, .admin-h3 {
-        font-size: 1.2rem; /* Smaller headings for mobile */
-    }
 
-    .form-submit-btn {
-        font-size: 1rem; /* Adjust button text size */
+    .email-search-container {
+      flex-direction: column; /* Stack the search input and buttons on top */
+      width: 100%;
     }
-
+  
+    .email-search-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .email-search-buttons button {
+      width: 100%;
+      margin-right: 0;
+      padding: 0.75rem;
+    }
+  
+    .admin-about-us-table {
+      width: 100%;
+      table-layout: auto; /* Let the table adjust to content */
+    }
+  
+    .email-list-container {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 5px;
+    }
+  
+    .email-list-button {
+      width: 100%;
+    }
+  
+    .admin-aboutUs-image {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .form-group input {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+  
+    .form-group label {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .email-search-container {
+      flex-direction: column;
+    }
+  
+    .email-list-parent {
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+  
+    .email-list-container {
+      max-height: 250px; /* Increase height for mobile */
+    }
+  
+    .admin-about-us-table {
+      width: 100%;
+      table-layout: fixed;
+      font-size: 0.8rem;
+    }
+  
     .admin-about-us-table th,
     .admin-about-us-table td {
-        font-size: 0.9rem; /* Smaller text for table */
+      font-size: 0.8rem;
+      padding: 8px;
     }
-
+  
+    button,
+    .deleteButton,
     .email-list-button {
-        font-size: 0.9rem; /* Smaller button text */
+      width: 100%;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
     }
-}
+  
+    .admin-aboutUs-image {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .email-search-container input {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      width: 100%; /* Full-width input on small screens */
+    }
+  }
+  
+  /* For horizontal scrolling if table overflows */
+  .table-wrapper {
+    overflow-x: auto;
+  }

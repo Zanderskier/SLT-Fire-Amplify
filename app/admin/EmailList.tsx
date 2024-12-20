@@ -159,7 +159,7 @@ export default function EmailList() {
               </div>
 
               {/* Email List button */}
-              <div className="divButton">
+              <div className="divButton2">
                 <button>Email List</button>
               </div>
             </div>

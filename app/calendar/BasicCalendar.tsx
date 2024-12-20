@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import CalendarLocal from "./CalendarLocal";
 import useCalendar from "./Calendar";
 import moment from "moment";
+import logoImage from "../navbarAssets/Logo-CutOut.png";
+import Image from "next/image";
 
 export default function BasicCalendar() {
   const {
@@ -54,27 +56,28 @@ export default function BasicCalendar() {
       {/* Modal for viewing event details */}
       {selectedEvent && (
         <div className="divPopUp">
-          <h3>Event Details</h3>
-          <p>
-            <strong>Title:</strong> {selectedEvent.title}
+          <Image src={logoImage} alt="Logo" className="logo" />
+          <h3 className="h3-title">Event Details</h3>
+          <p className="p-mobile">
+            <strong className="strong-title">Title:</strong> {selectedEvent.title}
           </p>
-          <p>
-            <strong>All Day Event:</strong>{" "}
+          <p className="p-mobile">
+            <strong className="strong-title">All Day Event:</strong>{" "}
             {selectedEvent.allDay ? "Yes" : "No"}
           </p>
-          <p>
-            <strong>Start:</strong>{" "}
+          <p className="p-mobile">
+            <strong className="strong-title">Start:</strong>{" "}
             {moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}
           </p>
-          <p>
-            <strong>End:</strong>{" "}
+          <p className="p-mobile">
+            <strong className="strong-title">End:</strong>{" "}
             {moment(selectedEvent.end).format("YYYY-MM-DD HH:mm")}
           </p>
-          <p>
-            <strong>Location:</strong> {selectedEvent.location}
+          <p className="p-mobile">
+            <strong className="strong-title">Location:</strong> {selectedEvent.location}
           </p>
-          <p>
-            <strong>Details:</strong> {selectedEvent.details}
+          <p className="p-mobile">
+            <strong className="strong-title">Details:</strong> {selectedEvent.details}
           </p>
           <div className="divButton">
             <button
@@ -149,7 +152,7 @@ export default function BasicCalendar() {
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 onChange={(e) => setRsvpPhone(e.target.value)}
                 className="popUpInputBox"
-                ></input>
+              ></input>
             </div>
             <div>
               <label>Party Size</label>
@@ -157,7 +160,7 @@ export default function BasicCalendar() {
                 value={rsvpAttendeeCount}
                 onChange={(e) => setRsvpAttendeeCount(Number(e.target.value))}
                 className="popUpInputBox"
-                >
+              >
                 {/* Values from 1 - 10 */}
                 {[...Array(10)].map((_, i) => (
                   <option key={i} value={i + 1}>
@@ -166,7 +169,9 @@ export default function BasicCalendar() {
                 ))}
               </select>
             </div>
-                { errorMessage && <div className="error-message">{errorMessage}</div>}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
             <div className="divButton">
               <button type="submit" onClick={handleRSVPSubmit}>
                 Submit
