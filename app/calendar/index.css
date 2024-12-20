@@ -290,6 +290,12 @@ th, td {
         align-items: flex-start;
     }
 
+    .radio-buttons-row {
+        display: flex;
+        gap: 10px; /* Adds spacing between the radio buttons */
+        align-items: center;
+      }
+
     /* Error message font size */
     .error-message {
         font-size: 16px;

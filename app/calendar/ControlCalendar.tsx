@@ -27,6 +27,24 @@ const ControlCalendar: React.FC = () => {
     listAttendees,
     attendeesList,
     isAttendeesModalOpen,
+    attendeeSearchQuery,
+    selectedAttendeeSearchOptions,
+    isRSVPModalOpen,
+    rsvpFName,
+    rsvpLName,
+    rsvpEmail,
+    rsvpPhone,
+    rsvpAttendeeCount,
+    partySizeTotal,
+    setRsvpLName,
+    setRsvpEmail,
+    setRsvpPhone,
+    setRsvpFName,
+    setRsvpAttendeeCount,
+    handleRSVPSubmit,
+    handleCloseRSVP,
+    setAttendeesSearchOptions,
+    setAttendeesSearchQuery,
     setAttendeesList,
     setEventTitle,
     setEventStartDate,
@@ -44,6 +62,7 @@ const ControlCalendar: React.FC = () => {
     handleDeleteEventClick,
     handleCloseAttendeesModal,
     handleListAttendeesClick,
+    handleRSVPEventClick,
   } = useCalendar(); // Use the custom hook to get the calendar logic
 
   return (
@@ -185,6 +204,10 @@ const ControlCalendar: React.FC = () => {
             {selectedEvent.location}
           </p>
           <p>
+            <strong className="strong-title">RSVP Total:</strong>{" "}
+            {partySizeTotal}
+          </p>
+          <p>
             <strong className="strong-title">Details:</strong>{" "}
             {selectedEvent.details}
           </p>
@@ -226,14 +249,52 @@ const ControlCalendar: React.FC = () => {
 
       {isAttendeesModalOpen && (
         <div className="divTablePopUp">
-          <div>
-            <h3>Attendees for {selectedEvent.title}</h3>
+          <div className="attendee-div-container">
+            <h3>Attendees for {selectedEvent.title} event</h3>
+            <div className="attendee-search-container">
+              <input
+                type="text"
+                value={attendeeSearchQuery}
+                onChange={(e) => setAttendeesSearchQuery(e.target.value)}
+              />
+            </div>
+            <div>
+              <button className="attendee-popup-button">Search</button>
+              <button className="attendee-popup-button">Email Selected</button>
+              <button className="popUpDeleteButton">Delete Selected</button>
+            </div>
+            <div className="radio-buttons-row">
+              <label>
+                <input
+                  type="radio"
+                  name="selectedAttendeeSearchOptions"
+                  value="name"
+                  onChange={(e) => setAttendeesSearchOptions(e.target.value)}
+                  defaultChecked={true}
+                />
+                Name
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="selectedAttendeeSearchOptions"
+                  value="email"
+                  onChange={(e) => setAttendeesSearchOptions(e.target.value)}
+                />
+                Email
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="selectedAttendeeSearchOptions"
+                  value="phone"
+                  onChange={(e) => setAttendeesSearchOptions(e.target.value)}
+                />
+                Phone
+              </label>
+            </div>
             {attendeesList.length > 0 ? (
               <div className="table-container">
-                <div>
-                  <input>
-                  </input>
-                </div>
                 <table>
                   <thead>
                     <tr>
@@ -275,8 +336,96 @@ const ControlCalendar: React.FC = () => {
             ) : (
               <p>No attendees found for this event.</p>
             )}
+            <p>Total Number of Attendees: {partySizeTotal}</p>
+            <button onClick={handleRSVPEventClick}>Add Attendee</button>
             <button onClick={handleCloseAttendeesModal}>Close</button>
           </div>
+        </div>
+      )}
+
+      {/* Modal for RSVP to an event */}
+      {isRSVPModalOpen && !isEditMode &&(
+        <div className="divPopUp">
+          <h3>Add Attendee to: {selectedEvent.title}</h3>
+          <div className="p-box">
+            <p>
+              Start Date:{" "}
+              {moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}
+            </p>
+            <p>
+              End Date: {moment(selectedEvent.end).format("YYYY-MM-DD HH:mm")}
+            </p>
+            <p>Location: {selectedEvent.location}</p>
+            <p>Details: {selectedEvent.details}</p>
+          </div>
+          <hr className="bold-hr" />
+          <form>
+            <div>
+              <label>First Name:</label>
+              <input
+                type="text"
+                value={rsvpFName}
+                onChange={(e) => setRsvpFName(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+            </div>
+            <div>
+              <label>Last Name:</label>
+              <input
+                type="text"
+                value={rsvpLName}
+                onChange={(e) => setRsvpLName(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+            </div>
+            <div>
+              <label>Email:</label>
+              <input
+                type="text"
+                value={rsvpEmail}
+                onChange={(e) => setRsvpEmail(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+              {/* Display error message */}
+            </div>
+            <div>
+              <label>Phone:</label>
+              <input
+                type="tel"
+                value={rsvpPhone}
+                placeholder="555-555-5555"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                onChange={(e) => setRsvpPhone(e.target.value)}
+                className="popUpInputBox"
+              ></input>
+            </div>
+            <div>
+              <label>Party Size</label>
+              <select
+                value={rsvpAttendeeCount}
+                onChange={(e) => setRsvpAttendeeCount(Number(e.target.value))}
+                className="popUpInputBox"
+              >
+                {/* Values from 1 - 10 */}
+                {[...Array(10)].map((_, i) => (
+                  <option key={i} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
+            <div className="divButton">
+              <button type="submit" onClick={handleRSVPSubmit}>
+                Submit
+              </button>
+              <button type="button" onClick={handleCloseRSVP}>
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
 

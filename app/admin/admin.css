@@ -180,6 +180,17 @@ button {
     margin-right: 10px;
     margin-bottom: 10px;
 }
+.buttonEmailSearch {
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
 
 button:hover {
     background-color: #66789b;
@@ -240,12 +251,13 @@ button:disabled {
 
 .deleteButton {
     padding: 0.5rem 1rem;
-    background-color: black;
-    color: white;
-    border: none;
+    background-color: #ff0800;
+    color: #000000;
+    border: 1px solid #000; 
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .deleteButton:hover {

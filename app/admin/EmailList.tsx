@@ -60,8 +60,7 @@ export default function EmailList() {
                 />
                 <button
                   onClick={handleSearchEmails}
-                  className="button"
-                  style={{ marginRight: "20px" }}
+                  className="buttonEmailSearch"
                 >
                   Search
                 </button>

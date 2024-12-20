@@ -59,6 +59,10 @@ const useCalendar = () => {
   const [listAttendees, setListAttendees] = useState(false);
   const [attendeesList, setAttendeesList] = useState<Attendee[]>([]);
   const [isAttendeesModalOpen, setIsAttendeesModalOpen] = useState(false);
+  const [attendeeSearchQuery, setAttendeesSearchQuery] = useState("");
+  const [selectedAttendeeSearchOptions, setAttendeesSearchOptions] =
+    useState("name");
+  const [partySizeTotal, setPartySizeTotal] = useState(0);
 
   const { sanitizeInput } = Sanitize();
   const { sanitizePhone } = PhoneSanitize();
@@ -246,7 +250,12 @@ const useCalendar = () => {
     if (selectedEvent && selectedEvent.title === event.title) {
       setSelectedEvent(null); // Close the popup
     } else {
+      getRsvpPartyInital(event.id);
       setSelectedEvent(event); // Open the popup with the new event's details
+      try {
+      } catch (error) {
+        // Call the refactored function to fetch attendee data
+      }
     }
   };
 
@@ -254,11 +263,13 @@ const useCalendar = () => {
     setIsEditMode(false);
     setIsAttendeesModalOpen(false);
     setIsModalOpen(false);
+    setPartySizeTotal(0);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     resetFormFields();
+    setPartySizeTotal(0);
     setIsEditMode(false);
     setSelectedEvent(null); // Clear selected event when modal is closed
   };
@@ -270,6 +281,7 @@ const useCalendar = () => {
   const handleCloseRSVP = () => {
     setIsRSVPModalOpen(false);
     setIsModalOpen(false);
+    setIsAttendeesModalOpen(false);
     setSelectedEvent(null);
     resetRSVPFormFields();
   };
@@ -318,6 +330,7 @@ const useCalendar = () => {
   };
 
   const handleRSVPEventClick = () => {
+    setIsAttendeesModalOpen(false);
     setIsRSVPModalOpen(true);
   };
 
@@ -427,7 +440,7 @@ const useCalendar = () => {
     resetRSVPFormFields();
   };
 
-  const fetchEventAttendees = async (eventId: string) => {
+  const fetchAttendeesForEvent = async (eventId: string) => {
     try {
       // Fetch event-attendee relationships for the specific event
       const { data: eventAttendants } =
@@ -440,30 +453,80 @@ const useCalendar = () => {
         const attendeeIds = eventAttendants.map(
           (relation) => relation.attendeeId
         );
+
         // Create an 'or' condition for all attendee IDs
         const filterCondition = attendeeIds.map((id) => ({ id: { eq: id } }));
 
         // Fetch attendee details based on IDs using 'or' conditions
-        console.log(attendeeIds);
         const { data: attendees } = await client.models.Attendee.list({
           filter: { or: filterCondition },
         });
 
-        // Transform the attendees data to match the Attendee interface
-        const transformedAttendees = attendees.map((attendee) => ({
-          id: attendee.id, // Ensure no null values
-          nameFirst: attendee.nameFirst || "", // Ensure no null values
-          nameLast: attendee.nameLast || "",
-          phoneNumber: attendee.phoneNumber || "",
-          email: attendee.email || "",
-          partySize: attendee.partySize || defaultPartySize,
-        }));
+        // Return attendees data
+        return attendees;
+      } else {
+        console.error("No attendees found for this event.");
+        return []; // Return empty array if no attendees are found
+      }
+    } catch (error) {
+      console.error("Error fetching attendees:", error);
+      return []; // Return empty array in case of error
+    }
+  };
+
+  const calculateTotalAttendees = (
+    attendees: { partySize: number }[]
+  ): number => {
+    return attendees.reduce((total, attendee) => total + attendee.partySize, 0);
+  };
+
+  const transformAttendeesData = (
+    attendees: any[]
+  ): {
+    id: string;
+    nameFirst: string;
+    nameLast: string;
+    phoneNumber: string;
+    email: string;
+    partySize: number;
+  }[] => {
+    return attendees.map((attendee) => ({
+      id: attendee.id, // Ensure no null values
+      nameFirst: attendee.nameFirst || "", // Ensure no null values
+      nameLast: attendee.nameLast || "",
+      phoneNumber: attendee.phoneNumber || "",
+      email: attendee.email || "",
+      partySize: attendee.partySize || defaultPartySize,
+    }));
+  };
+
+  const getRsvpPartyInital = async (eventId: string) => {
+    const attendees = await fetchAttendeesForEvent(eventId);
+    if (attendees.length > 0) {
+      // Use the helper function to transform the attendees data
+      const transformedAttendees = transformAttendeesData(attendees);
+
+      // Calculate total attendees using the helper function
+      const totalAttendees = calculateTotalAttendees(transformedAttendees);
+
+      setPartySizeTotal(totalAttendees);
+    }
+    return;
+  };
+
+  const fetchEventAttendees = async (eventId: string) => {
+    try {
+      // Call the refactored function to fetch attendee data
+      const attendees = await fetchAttendeesForEvent(eventId);
+
+      if (attendees.length > 0) {
+        // Use the helper function to transform the attendees data
+        const transformedAttendees = transformAttendeesData(attendees);
 
         // Set state for attendees list
         setAttendeesList(transformedAttendees);
         setIsAttendeesModalOpen(true); // Open modal to display attendees
       } else {
-        console.error("No attendees found for this event.");
         setAttendeesList([]); // In case no attendees are found
         setIsAttendeesModalOpen(true);
       }
@@ -516,6 +579,12 @@ const useCalendar = () => {
     listAttendees,
     attendeesList,
     isAttendeesModalOpen,
+    attendeeSearchQuery,
+    selectedAttendeeSearchOptions,
+    partySizeTotal,
+    setPartySizeTotal,
+    setAttendeesSearchOptions,
+    setAttendeesSearchQuery,
     setIsAttendeesModalOpen,
     setAttendeesList,
     setListAttendees,
