@@ -45,10 +45,11 @@
     align-items: center;
 }
 
+/*Adjust so that it is mobile friendly and not fixed ratios*/
 .admin-aboutUs-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 10%;
+    scale: 2.4;
+    margin-left: 70px;
+    margin-top: 20px;
 }
 
 .admin-about-us-table {

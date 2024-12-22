@@ -5,7 +5,6 @@ import useCalendar from "./Calendar"; // Import the hook
 import moment from "moment";
 import logoImage from "../navbarAssets/Logo-CutOut.png";
 import Image from "next/image";
-import { SelectItem } from "@nextui-org/react";
 
 const DndDCalendar = withDragAndDrop(CalendarLocal);
 
@@ -317,8 +316,7 @@ const ControlCalendar: React.FC = () => {
                                   att.id === attendee.id
                                     ? { ...att, selected: e.target.checked }
                                     : att
-                                )
-                              );
+                                ));
                             }}
                           />
                         </td>

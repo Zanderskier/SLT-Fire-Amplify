@@ -2,7 +2,7 @@
 
 import { useAboutUsLogic } from "./AboutUsLogic"; // Import the logic file
 import { useCollapse } from "../supportFunctions/ToggleCollase";
-import blankImage from "../global-images/blank-person.png";
+import smallLogo from "../global-images/second-logo.png";
 import "@aws-amplify/ui-react/styles.css";
 import "../page.module.css";
 import "./admin.css";
@@ -79,7 +79,7 @@ export default function AboutUs() {
                         ) : (
                           <img
                             className="admin-aboutUs-image"
-                            src={blankImage.src}
+                            src={smallLogo.src}
                             alt="About Us"
                           />
                         )}
