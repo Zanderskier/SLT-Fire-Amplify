@@ -4,7 +4,7 @@ export const storageCongfig = {
   name: "slt-fire-pic-storage",
   isDefault: true,
   access: (allow: any) => ({
-    'about-us-pictures/*x ':[
+    'test/':[
       allow.guest.to(['read', 'write', 'delete'])
     ]
   }),
